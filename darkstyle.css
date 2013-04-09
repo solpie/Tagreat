@@ -129,7 +129,13 @@ QTabWidget:focus, QCheckBox:focus
 {
     border: none;
 }
-
+QLabel#DirTreeLabel
+{
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 darkorange, stop:1 lightcoral);
+    /*background-color: darkorange;*/
+    border-radius: 2px;
+    border-width: 1px;
+}
 QLineEdit
 {
     background-color: #201F1F;

@@ -15,3 +15,4 @@ UI_MENU_FILE_EXPORT_SPT = '导出场景数据(*.spt)'
 
 CSS_WIDGET_ENTITY = 'Entity'
 CSS_WIDGET_DIR_TREE = 'DirTree'
+CSS_WIDGET_DIR_TREE_LABEL = 'DirTreeLabel'

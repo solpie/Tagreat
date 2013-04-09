@@ -28,13 +28,15 @@ class MainWin(Gui.QMainWindow):
         '''
         self.menu_bar = MenuBar(self)
         self.setMenuBar(self.menu_bar)
-
+        '''
+        目录
+        '''
         self.dir_tree = DirTree(self.centralWidget)
         self.dir_tree.move(10, 30)
+        self.dir_tree.addDir('dd')
 
         self.entity = Entity(self.centralWidget)
         self.entity.move(200, 30)
-        self.entity.qw.resize(100, 30)
 
 
 def test_print(name):
@@ -50,10 +52,15 @@ def test():
     view.execute('test', 'dd')
 
 
-if __name__ == "__main__":
-    # test()
-    #
+def main():
     app = Gui.QApplication(sys.argv)
     mw = MainWin()
     mw.show()
     sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+    # test()
+    #
+    main()
+
