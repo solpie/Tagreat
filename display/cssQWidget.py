@@ -25,6 +25,16 @@ class CssQBase(object):
         if object_name:
             self.setObjectName(object_name)
 
+    @staticmethod
+    def update_ui(func):
+        def deco(*args):
+            args[0].base.hide()
+            print 'hide..', args
+            func(*args)
+            args[0].base.show()
+
+        return deco
+
     def setObjectName(self, name):
         self.base.setObjectName(name)
 

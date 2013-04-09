@@ -9,8 +9,6 @@ import os
 
 
 class DirTree(CssQBase):
-    is_opening_dir = False
-
     def __init__(self, parent):
         super(DirTree, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_DIR_TREE)
         self.resize(200, 800)
@@ -37,15 +35,14 @@ class DirTree(CssQBase):
         self.searchButton.move(150, 5)
         # self.base.mousePressEvent = self.open_dir
 
+    @CssQBase.update_ui
     def open_dir(self, e=None):
         # q = QtGui.QWidget()
         # q.geometry()
         # self.base.setUpdatesEnabled(False)
-
-        self.base.hide()
         str_dir = str(e.getText())
         if self.current_path is not '/':
-            self.current_path=os.path.join(self.current_path, str_dir)
+            self.current_path = os.path.join(self.current_path, str_dir)
         else:
             self.current_path = str_dir
         print 'open dir:', self.current_path
@@ -62,11 +59,10 @@ class DirTree(CssQBase):
                 idx += 1
             else:
                 self.file_list.append(file_url)
-        self.base.show()
+
 
     def list_partition(self):
         c = wmi.WMI()
-        self.is_opening_dir = True
         for disk in c.Win32_LogicalDisk(DriveType=3):
             print disk.Caption
             dirs = os.listdir(disk.Caption)
