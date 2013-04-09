@@ -12,7 +12,7 @@ class DirTree(CssQBase):
 
     def __init__(self, parent):
         super(DirTree, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_DIR_TREE)
-        self.resize(200, 400)
+        self.resize(200, 800)
         self.ext()
 
         self.dir_list = list()
@@ -36,17 +36,29 @@ class DirTree(CssQBase):
         # self.base.mousePressEvent = self.open_dir
 
     def open_dir(self, e=None):
-        self.current_path = e.getText()
+        # q = QtGui.QWidget()
+        # q.geometry()
+        # self.base.setUpdatesEnabled(False)
+        self.base.hide()
+        str_dir = str(e.getText())
+        if self.current_path is not '/':
+            self.current_path=os.path.join(self.current_path, str_dir)
+        else:
+            self.current_path = str_dir
+        print 'open dir:', self.current_path
         self.clear_dir()
         dirs = os.listdir(self.current_path)
-        for idx in range(0, len(dirs)):
-            f = dirs[idx]
+        idx = 0
+        for f in dirs:
+        # for idx in range(0, len(dirs)):
+        #     f = dirs[idx]
             file_url = self.current_path + "\\" + f
             if os.path.isdir(file_url):
-                self.add_dir(file_url, idx)
+                self.add_dir(f, idx)
+                idx += 1
             else:
                 self.file_list.append(file_url)
-        print 'open dir:', e.getText(), dirs
+        self.base.show()
 
     def list_partition(self):
         c = wmi.WMI()
@@ -59,18 +71,17 @@ class DirTree(CssQBase):
 
     def add_dir(self, str_dir, idx=None):
         # win32file.QueryDosDevice()
-        if idx is not None and idx < len(self.dirNode_list) and self.dirNode_list[idx].is_free:
-            l = self.dirNode_list[idx]
-            l.set_dir(str_dir)
-            num = idx
+        if idx is not None and idx < len(self.dirNode_list):
+            dir_node = self.dirNode_list[idx]
+            dir_node.set_dir(str_dir)
         else:
             num = len(self.dir_list)
-            l = DirNode(self.base, str_dir)
-            l.onClick = self.open_dir
-            self.dirNode_list.append(l)
-
+            dir_node = DirNode(self.base, str_dir)
+            dir_node.onClick = self.open_dir
+            self.dirNode_list.append(dir_node)
+            dir_node.move(5, num * 28 + 40)
         self.dir_list.append(str_dir)
-        l.move(5, num * 28 + 40)
+
 
     def clear_dir(self):
         self.dir_list = list()

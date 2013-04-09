@@ -6,8 +6,6 @@ from PyQt4 import QtGui, QtCore
 
 
 class DirNode(CssQBase):
-    is_free = False
-
     def __init__(self, parent, text):
         super(DirNode, self).__init__(QtGui.QPushButton, parent, const.CSS_BUTTON_DIR_TREE_NODE)
         self.base.setFocusPolicy(QtCore.Qt.NoFocus)#去除虚线框
@@ -17,6 +15,7 @@ class DirNode(CssQBase):
         self.label.setObjectName(const.CSS_LABEL_DIR_TREE_LABEL)
         self.label.setText(text)
         self.label.move(5, 5)
+        self.label.resize(200,21)
         self.resize(parent.width() - 10, 25)
 
     def mousePressEvent(self, e=None):
@@ -28,12 +27,12 @@ class DirNode(CssQBase):
 
     def set_dir(self, str_dir):
         self.label.setText(str_dir)
-        self.is_free = False
-        # self.base.show()
+        print self, self.getText()
+        self.base.show()
 
     def free(self):
-        self.is_free = True
-        # self.base.hide()
+        print 'free', self, self.getText()
+        self.base.hide()
 
     def getText(self):
         return self.label.text()
