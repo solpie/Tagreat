@@ -387,7 +387,15 @@ QPushButton#DirTreeNode {
     /*background-color: darkorange;*/
     border-radius: 2px;
     border-width: 1px;
-    padding: -1;
+}
+
+QPushButton#DirTreeNode:hover {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 lightcoral, stop:1 darkorange);
+    /*background-color: darkorange;*/
+}
+QPushButton#DirTreeNode:pressed {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 lightcoral, stop:1 lightcoral);
+    /*background-color: darkorange;*/
 }
 
 QPushButton:disabled {
@@ -402,6 +410,10 @@ QPushButton:disabled {
     padding: -1;
     /*border-radius: 3px;*/
     color: #3A3939;
+}
+
+QPushButton:checked {
+    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #302F2F, stop:1 #484846);
 }
 
 QComboBox {
@@ -453,9 +465,7 @@ QComboBox::down-arrow:focus {
     image: url(:/qss_icons/rc/down_arrow.png);
 }
 
-QPushButton:pressed {
-    background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #302F2F, stop:1 #484846);
-}
+
 
 QAbstractSpinBox {
     padding-top: 2px;
@@ -503,7 +513,10 @@ QLabel {
 }
 
 QLabel#DirTreeLabel {
+    background-color: transparent;
     font-size: 14;
+    color: black;
+    vertical-align:baseline;
     font-family: "Courier New";
 }
 

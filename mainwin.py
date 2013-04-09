@@ -19,7 +19,7 @@ class MainWin(Gui.QMainWindow):
         style_sheet = Core.QLatin1String(f.readAll())
         self.setStyleSheet(style_sheet)
 
-        self.setWindowTitle("Scene Editor")
+        self.setWindowTitle("Tagreat")
         self.showMaximized()
         self.centralWidget = Gui.QWidget(self)
         self.setCentralWidget(self.centralWidget)
@@ -33,7 +33,6 @@ class MainWin(Gui.QMainWindow):
         '''
         self.dir_tree = DirTree(self.centralWidget)
         self.dir_tree.move(10, 30)
-        self.dir_tree.addDir('dd')
 
         self.entity = Entity(self.centralWidget)
         self.entity.move(200, 30)
