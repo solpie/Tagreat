@@ -387,6 +387,7 @@ QPushButton#DirTreeNode {
     /*background-color: darkorange;*/
     border-radius: 2px;
     border-width: 1px;
+    padding: -1;
 }
 
 QPushButton:disabled {
@@ -398,6 +399,7 @@ QPushButton:disabled {
     padding-bottom: 5px;
     padding-left: 10px;
     padding-right: 10px;
+    padding: -1;
     /*border-radius: 3px;*/
     color: #3A3939;
 }

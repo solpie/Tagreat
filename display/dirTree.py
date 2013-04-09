@@ -1,5 +1,6 @@
 __author__ = 'SolPie'
-from cssQWidget import  CssQBase
+from cssQWidget import CssQBase
+from dirNode import DirNode
 from PyQt4 import QtGui
 import const
 
@@ -12,11 +13,10 @@ class DirTree(CssQBase):
         self.dir_list = list()
 
     def addDir(self, str_dir):
-        l = QtGui.QLabel(str_dir)
-        l.setObjectName(const.CSS_LABEL_DIR_TREE_LABEL)
+        l = DirNode(self.base, str_dir)
         l.resize(140, 21)
-        self.addWidget(l)
         num = len(self.dir_list)
         l.move(5, num * 25 + 5)
+        self.dir_list.append(l)
 
 

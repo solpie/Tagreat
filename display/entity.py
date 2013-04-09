@@ -8,7 +8,7 @@ import const
 
 class Entity(CssQBase):
     def __init__(self, parent):
-        super(Entity, self).__init__(QtGui.QWidget,parent, const.CSS_WIDGET_ENTITY)
+        super(Entity, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_ENTITY)
         self.resize(400, 120)
         self.label = QtGui.QLabel()
         self.addWidget(self.label)

@@ -1,12 +1,14 @@
 __author__ = 'SolPie'
-from cssQWidget import CssQWidget
+from cssQWidget import CssQBase
 import const
-from PyQt4 import QtGui
+from PyQt4 import QtGui,QtCore
 
 
-class DirNode(CssQWidget):
-    def __init__(self, parent):
-        super(DirNode, self).__init__(parent, const.CSS_WIDGET_DIR_TREE)
-        self.b = QtGui.QPushButton()
-        self.addWidget(self.b)
+class DirNode(CssQBase):
+    def __init__(self, parent, text):
+        super(DirNode, self).__init__(QtGui.QPushButton, parent, const.CSS_BUTTON_DIR_TREE_NODE)
+        self.label = QtGui.QLabel(self.base)
+        self.label.setObjectName(const.CSS_LABEL_DIR_TREE_LABEL)
+        self.label.setText(text)
+        self.base.setFocusPolicy(QtCore.Qt.NoFocus)
 
