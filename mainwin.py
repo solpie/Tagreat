@@ -35,7 +35,7 @@ class MainWin(Gui.QMainWindow):
         self.dir_tree.move(10, 30)
 
         self.entity = Entity(self.centralWidget)
-        self.entity.move(200, 30)
+        self.entity.move(300, 30)
 
 
 def test_print(name):
