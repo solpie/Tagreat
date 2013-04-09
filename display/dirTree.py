@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 __author__ = 'SolPie'
 from cssQWidget import CssQBase
 from dirNode import DirNode
@@ -27,6 +28,7 @@ class DirTree(CssQBase):
         self.ext_search()
 
     def ext_search(self):
+        # todo 返回上层 搜索过滤
         self.search = QtGui.QLineEdit(self.base)
         self.search.move(5, 5)
 
@@ -39,6 +41,7 @@ class DirTree(CssQBase):
         # q = QtGui.QWidget()
         # q.geometry()
         # self.base.setUpdatesEnabled(False)
+
         self.base.hide()
         str_dir = str(e.getText())
         if self.current_path is not '/':
@@ -54,6 +57,7 @@ class DirTree(CssQBase):
         #     f = dirs[idx]
             file_url = self.current_path + "\\" + f
             if os.path.isdir(file_url):
+                # todo 过滤系统文件夹 隐藏文件夹
                 self.add_dir(f, idx)
                 idx += 1
             else:
