@@ -29,7 +29,6 @@ class CssQBase(object):
     def update_ui(func):
         def deco(*args):
             args[0].base.hide()
-            print 'hide..', args
             func(*args)
             args[0].base.show()
 
