@@ -9,6 +9,17 @@ import os
 
 
 class DirTree(CssQBase):
+    dir_list = None
+    file_list = None
+    dirNode_list = None
+    partition_list = None
+    backward_path_list = None
+
+    current_path = None
+
+    dir_list_height = None
+    scroll_y = None
+
     def __init__(self, parent):
         super(DirTree, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_DIR_TREE)
         self.resize(200, 800)
@@ -95,6 +106,7 @@ class DirTree(CssQBase):
             self.current_path = self.backward_path_list.pop()
             if self.current_path is '/':
                 self.clear_dir()
+
                 self.list_partition()
             else:
                 print 'backward dir:', self.current_path
@@ -103,7 +115,10 @@ class DirTree(CssQBase):
     def list_partition(self):
         c = wmi.WMI()
         idx = 0
-        for disk in c.Win32_LogicalDisk(DriveType=3):
+        if not self.partition_list:
+            print 'init... list partition'
+            self.partition_list = c.Win32_LogicalDisk(DriveType=3)
+        for disk in self.partition_list:
             print disk.Caption
             # dirs = os.listdir(disk.Caption)
             self.add_dir(disk.Caption, idx)
