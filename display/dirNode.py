@@ -15,7 +15,7 @@ class DirNode(CssQBase):
         self.label.setObjectName(const.CSS_LABEL_DIR_TREE_LABEL)
         self.label.setText(text)
         self.label.move(5, 5)
-        self.label.resize(200,21)
+        self.label.resize(200, 21)
         self.resize(parent.width() - 10, 25)
 
     def mousePressEvent(self, e=None):

@@ -19,6 +19,8 @@ __author__ = 'SolPie'
 
 
 class CssQBase(object):
+    base = None
+
     def __init__(self, cls, parent, object_name=None):
         self.base = cls(parent)
         self.object_name = object_name
@@ -34,6 +36,10 @@ class CssQBase(object):
 
         return deco
 
+    @classmethod
+    def width(cls):
+        return cls.base.width()
+
     def setObjectName(self, name):
         self.base.setObjectName(name)
 
@@ -45,3 +51,6 @@ class CssQBase(object):
 
     def addWidget(self, child):
         child.setParent(self.base)
+
+    def scroll(self, x, y):
+        self.base.scroll(x, y)
