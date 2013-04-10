@@ -116,16 +116,15 @@ class DirTree(CssQBase):
         c = wmi.WMI()
         idx = 0
         if not self.partition_list:
-            print 'init... list partition'
             self.partition_list = c.Win32_LogicalDisk(DriveType=3)
+            print 'init... list partition', self.partition_list
         for disk in self.partition_list:
-            print disk.Caption
+            # print disk.Caption
             # dirs = os.listdir(disk.Caption)
             self.add_dir(disk.Caption, idx)
             idx += 1
 
     def add_dir(self, str_dir, idx):
-        # win32file.QueryDosDevice()
         if idx < len(self.dirNode_list):
             dir_node = self.dirNode_list[idx]
             dir_node.set_dir(str_dir)
@@ -140,6 +139,7 @@ class DirTree(CssQBase):
 
     def clear_dir(self):
         self.dir_list = list()
+        self.dir_list_widget.scroll(0, -self.scroll_y)
         for d in self.dirNode_list:
             d.free()
             # self.base.destroy()#destroy (self, bool destroyWindow = True, bool destroySubWindows = True)

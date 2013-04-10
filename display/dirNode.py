@@ -2,6 +2,7 @@
 __author__ = 'SolPie'
 from cssQWidget import CssQBase
 import const
+from const import trans
 from PyQt4 import QtGui, QtCore
 
 
@@ -13,7 +14,7 @@ class DirNode(CssQBase):
 
         self.label = QtGui.QLabel(self.base)
         self.label.setObjectName(const.CSS_LABEL_DIR_TREE_LABEL)
-        self.label.setText(text)
+        self.label.setText(trans(text))
         self.label.move(5, 5)
         self.label.resize(200, 21)
         self.resize(parent.width() - 10, 25)
@@ -26,7 +27,7 @@ class DirNode(CssQBase):
         pass
 
     def set_dir(self, str_dir):
-        self.label.setText(str_dir)
+        self.label.setText(trans(str_dir))
         print self, self.getText()
         self.base.show()
 
