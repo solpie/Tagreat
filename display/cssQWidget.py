@@ -36,9 +36,8 @@ class CssQBase(object):
 
         return deco
 
-    @classmethod
-    def width(cls):
-        return cls.base.width()
+    def width(self):
+        return self.base.width()
 
     def setObjectName(self, name):
         self.base.setObjectName(name)

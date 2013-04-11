@@ -17,7 +17,7 @@ class DirNode(CssQBase):
         self.label.setText(trans(text))
         self.label.move(5, 5)
         self.label.resize(200, 21)
-        self.resize(parent.width() - 10, 25)
+
 
     def mousePressEvent(self, e=None):
         self.onClick(self)

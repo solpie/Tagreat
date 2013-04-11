@@ -3,6 +3,9 @@ __author__ = 'SolPie'
 from PyQt4 import QtGui
 
 
+VALUE_CHANGED = 'valueChanged(int)'
+
+
 def trans(text, disambig=None):
     return QtGui.QApplication.translate("", text, disambig, QtGui.QApplication.UnicodeUTF8)
 
