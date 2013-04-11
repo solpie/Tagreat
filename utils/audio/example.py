@@ -3,29 +3,52 @@
 import pyaudio
 import wave
 import sys
+import time
 
 CHUNK = 1024
 
-if len(sys.argv) < 2:
-    print("Plays a wave file.\n\nUsage: %s filename.wav" % sys.argv[0])
-    sys.exit(-1)
+# if len(sys.argv) < 2:
+#     print("Plays a wave file.\n\nUsage: %s filename.wav" % sys.argv[0])
+#     sys.exit(-1)
 
-wf = wave.open(sys.argv[1], 'rb')
 
-p = pyaudio.PyAudio()
 
-stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
-                output=True)
+def main(url):
 
-data = wf.readframes(CHUNK)
+    wf = wave.open(url, 'rb')
+    # instantiate PyAudio (1)
+    p = pyaudio.PyAudio()
 
-while data != '':
-    stream.write(data)
-    data = wf.readframes(CHUNK)
+    # define callback (2)
+    def callback(in_data, frame_count, time_info, status):
+        data = wf.readframes(frame_count)
+        print 'callback',in_data,frame_count,time_info,status
+        return (data, pyaudio.paContinue)
 
-stream.stop_stream()
-stream.close()
+    # open stream using callback (3)
+    stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
+                    channels=wf.getnchannels(),
+                    rate=wf.getframerate(),
+                    output=True,
+                    stream_callback=callback)
 
-p.terminate()
+    # start the stream (4)
+    stream.start_stream()
+
+    # wait for stream to finish (5)
+    while stream.is_active():
+        time.sleep(1)
+
+    # stop stream (6)
+    stream.stop_stream()
+    stream.close()
+    wf.close()
+
+    # close PyAudio (7)
+    p.terminate()
+    pass
+if __name__ =="__main__":
+    from preview import Preview
+    url = 'e:\\test.wav'
+    p = Preview(url)
+    # main('e:\\test.wav')
