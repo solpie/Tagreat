@@ -8,7 +8,7 @@ import wmi
 import os
 import win32con
 import win32file
-from views.entityGalleryView import EntityGalleryView
+from views.tagGalleryView import view
 
 
 class TagTree(CssQBase):
@@ -46,7 +46,6 @@ class TagTree(CssQBase):
         self.vScroll_bar.setValue(self.vScroll_bar.value() - e.delta())
 
     def add_listener(self):
-        view = EntityGalleryView()
         view.map(view.LIST_DIR, self.update_node)
         pass
 

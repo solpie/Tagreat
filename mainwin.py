@@ -12,6 +12,7 @@ class MainWin(Gui.QMainWindow):
     def __init__(self):
         super(MainWin, self).__init__(None)
         self.setupUI()
+        self.setWindowFlags(Core.Qt.FramelessWindowHint)
 
     def setupUI(self):
         f = Core.QFile("darkstyle.css")
@@ -43,9 +44,9 @@ def test_print(name):
 
 
 def test():
-    from views.entityGalleryView import EntityGalleryView
+    from views.tagGalleryView import TagGalleryView
 
-    view = EntityGalleryView()
+    view = TagGalleryView()
     view.map('test', test_print)
 
     view.execute('test', 'dd')

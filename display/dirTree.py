@@ -94,10 +94,9 @@ class DirTree(CssQBase):
         self.update_tagTree()
 
     def update_tagTree(self):
-        from views.entityGalleryView import EntityGalleryView
-        v = EntityGalleryView()
-        v.execute(v.LIST_DIR, self.file_list)
-        print self, 'EntityGalleryView', v
+        from views.tagGalleryView import view
+        view.execute(view.LIST_DIR, self.file_list)
+        print self, 'EntityGalleryView', view
 
     def open_dir(self, e=None):
         str_dir = str(e.getText())

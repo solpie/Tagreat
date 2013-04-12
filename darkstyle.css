@@ -527,6 +527,14 @@ QLabel#DirTree:hover {
     background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 lightcoral, stop:1 darkorange);
 }
 
+QLabel#TagNode {
+    background-color: transparent;
+    font-size: 14;
+    color: black;
+    vertical-align:baseline;
+    font-family: "Courier New";
+}
+
 QTabBar::tab {
     color: #b1b1b1;
     border: 1px solid #3A3939;

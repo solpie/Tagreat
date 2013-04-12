@@ -15,7 +15,7 @@ class MenuBar(QtGui.QMenuBar):
         self.menu_file.setTitle(trans(const.UI_MENU_FILE))
         self.addMenu(self.menu_file)
         self.add_act_to_menu(self.menu_file, const.UI_MENU_FILE_OPEN, self.act_file_open)
-        self.add_act_to_menu(self.menu_file, const.UI_MENU_FILE_IMPORT_SPT, self.act_file_open)
+        self.add_act_to_menu(self.menu_file, const.UI_MENU_FILE_EXIT, self.act_file_exit)
 
     def add_act_to_menu(self, menu, actName, func):
         act = QtGui.QAction(self)
@@ -29,5 +29,5 @@ class MenuBar(QtGui.QMenuBar):
     def act_file_save(self):
         print 'actFileSave'
 
-    def act_import_spt(self):
-        print 'import spt'
+    def act_file_exit(self):
+        print 'exit...'

@@ -20,3 +20,10 @@ class BaseView(object):
 
     def execute(self, event, *args, **kwargs):
         return self.dic_event_func[event](*args)
+
+    @staticmethod
+    def map_view(func):
+        def deco(*args):
+            args[0]
+            func(*args)
+        return deco
