@@ -19,7 +19,6 @@ class DirTree(CssQBase):
 
     current_path = None
 
-    dir_list_height = None
     scroll_y = None
 
     def __init__(self, parent):
@@ -35,11 +34,10 @@ class DirTree(CssQBase):
 
         self.vScroll_bar = QtGui.QScrollBar(self.base)
         self.vScroll_bar.setOrientation(QtCore.Qt.Vertical)
-        self.vScroll_bar.move(self.width() - 30, 35)
-        self.vScroll_bar.resize(25, 300)
+        self.vScroll_bar.resize(15, self.dir_list_widget.height())
+        self.vScroll_bar.move(self.width() - self.vScroll_bar.width() - 5, self.dir_list_widget.y())
         self.base.connect(self.vScroll_bar, QtCore.SIGNAL(const.VALUE_CHANGED), self.on_vScroll_changed)
 
-        self.dir_list_height = 0
         self.scroll_y = 0
 
         self.dir_list = list()
@@ -62,19 +60,6 @@ class DirTree(CssQBase):
 
     def wheelEvent(self, e):
         self.vScroll_bar.setValue(self.vScroll_bar.value() - e.delta())
-        # dy = e.delta()
-        # print 'wheelEvent', dy
-        # self.scroll_y += dy
-        #
-        # if self.scroll_y < -self.dir_list_height:
-        #     self.scroll_y = -self.dir_list_height
-        #     dy = 0
-        # if self.scroll_y > 0:
-        #     self.scroll_y = 0
-        #     dy = 0
-        #
-        # # if e.delta() + self.dir_list_widget.y()
-        # self.dir_list_widget.scroll(0, dy)
 
     def ext(self):
         self.ext_search()
@@ -102,14 +87,20 @@ class DirTree(CssQBase):
             if attribute & (win32con.FILE_ATTRIBUTE_HIDDEN | win32con.FILE_ATTRIBUTE_SYSTEM):
                 print file_url
             elif attribute & win32con.FILE_ATTRIBUTE_DIRECTORY:
-                self.add_dir(f, idx)
+                self.update_dir(f, idx)
                 idx += 1
             else:
-                self.file_list.append(file_url)
+                self.file_list.append(f)
+        self.set_vScroll_range(idx)
+        self.update_tagTree()
+
+    def update_tagTree(self):
+        from views.entityGalleryView import EntityGalleryView
+        v = EntityGalleryView()
+        v.execute(v.LIST_DIR, self.file_list)
+        print self, 'EntityGalleryView', v
 
     def open_dir(self, e=None):
-        # q = QtGui.QWidget()
-        # q.geometry()
         str_dir = str(e.getText())
         self.backward_path_list.append(self.current_path)
         if self.current_path is not '/':
@@ -124,11 +115,11 @@ class DirTree(CssQBase):
             self.current_path = self.backward_path_list.pop()
             if self.current_path is '/':
                 self.clear_dir()
-
                 self.list_partition()
+                self.update_tagTree()
             else:
-                print 'backward dir:', self.current_path
                 self.list_dir(self.current_path)
+            print 'backward dir:', self.current_path
 
     def list_partition(self):
         c = wmi.WMI()
@@ -139,29 +130,33 @@ class DirTree(CssQBase):
         for disk in self.partition_list:
             # print disk.Caption
             # dirs = os.listdir(disk.Caption)
-            self.add_dir(disk.Caption, idx)
+            self.update_dir(disk.Caption, idx)
             idx += 1
+        self.set_vScroll_range(idx)
 
-    def add_dir(self, str_dir, idx):
+    def update_dir(self, str_dir, idx):
         if idx < len(self.dirNode_list):
-            dir_node = self.dirNode_list[idx]
-            dir_node.set_dir(str_dir)
+            dirNode = self.dirNode_list[idx]
+            dirNode.update(str_dir)
         else:
             num = len(self.dir_list)
-            dir_node = DirNode(self.dir_list_widget, str_dir)
-            dir_node.resize(self.dir_list_widget.width() - 40, 25)
-            dir_node.onClick = self.open_dir
-            self.dirNode_list.append(dir_node)
-            self.dir_list_height = num * 28
-            dir_node.move(5, self.dir_list_height)
+            dirNode = DirNode(self.dir_list_widget, str_dir)
+            dirNode.resize(self.dir_list_widget.width() - 40, 25)
+            dirNode.onClick = self.open_dir
+            self.dirNode_list.append(dirNode)
+            dirNode.move(5, num * 28)
         self.dir_list.append(str_dir)
 
     def clear_dir(self):
         self.dir_list = list()
+        self.file_list = list()
         self.dir_list_widget.scroll(0, -self.scroll_y)
         for d in self.dirNode_list:
             d.free()
             # self.base.destroy()#destroy (self, bool destroyWindow = True, bool destroySubWindows = True)
+
+    def set_vScroll_range(self, num):
+        self.vScroll_bar.setRange(0, num * 28 - self.dir_list_widget.height() / 5 * 4)
 
 
 

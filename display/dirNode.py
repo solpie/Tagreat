@@ -18,21 +18,19 @@ class DirNode(CssQBase):
         self.label.move(5, 5)
         self.label.resize(200, 21)
 
-
     def mousePressEvent(self, e=None):
         self.onClick(self)
 
     def onClick(self, base):
-        #override me in parent
+        #override me in subClass or instance
         pass
 
-    def set_dir(self, str_dir):
+    def update(self, str_dir):
         self.label.setText(trans(str_dir))
         print self, self.getText()
         self.base.show()
 
     def free(self):
-        print 'free', self, self.getText()
         self.base.hide()
 
     def getText(self):

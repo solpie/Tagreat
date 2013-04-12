@@ -13,11 +13,10 @@ def singleton(cls):
 
 
 class BaseView(object):
-    def __init__(self):
-        self.dic_event_func = dict()
+    dic_event_func = dict()
 
     def map(self, event, func):
         self.dic_event_func[event] = func
 
-    def execute(self, event, *args,**kwargs):
+    def execute(self, event, *args, **kwargs):
         return self.dic_event_func[event](*args)

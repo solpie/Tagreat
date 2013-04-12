@@ -5,7 +5,7 @@ import sys
 from display.menuBar import MenuBar
 from display.dirTree import DirTree
 
-from display.entity import Entity
+from display.tagTree import TagTree
 
 
 class MainWin(Gui.QMainWindow):
@@ -32,10 +32,10 @@ class MainWin(Gui.QMainWindow):
         目录
         '''
         self.dir_tree = DirTree(self.centralWidget)
-        self.dir_tree.move(10, 30)
+        self.dir_tree.move(10, 5)
 
-        self.entity = Entity(self.centralWidget)
-        self.entity.move(400, 30)
+        self.entity = TagTree(self.centralWidget)
+        self.entity.move(400, 5)
 
 
 def test_print(name):
