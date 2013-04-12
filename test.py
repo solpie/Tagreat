@@ -4,7 +4,7 @@ import unittest
 
 class TagreatTest(unittest.TestCase):
     def setUp(self):
-        from mainwin import main
+        from tagreat import main
         main()
 
     def test_add_dir(self):
