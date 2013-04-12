@@ -46,6 +46,10 @@ QWidget#DirTree {
 QWidget#DirTreeFlat {
     background-color: gainsboro;
 }
+QWidget#TagNodeFunc {
+    background-color: aliceblue;
+    border-radius: 3px;
+}
 
 QWidget:item:hover {
     background-color: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #78879b, stop:1 #78879b);

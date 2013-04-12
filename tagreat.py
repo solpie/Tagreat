@@ -21,8 +21,10 @@ def test():
 def main():
     app = QtGui.QApplication(sys.argv)
     mw = MainWin()
+
     mw.show()
     sys.exit(app.exec_())
+
 
 
 if __name__ == "__main__":

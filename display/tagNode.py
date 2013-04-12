@@ -7,6 +7,8 @@ import const
 
 
 class TagNode(CssQBase):
+    func_list = None
+
     def __init__(self, parent, title):
         super(TagNode, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_ENTITY)
         self.label = QtGui.QLabel()
@@ -16,9 +18,43 @@ class TagNode(CssQBase):
         if title:
             self.setTitle(title)
 
+        #todo 功能栏 ：音频预览 打开文件位置 设置为封面
+        #todo  audio preview
+        #todo open in explorer
+        #todo set cover
+        #todo func icon
+        '''
+
+        '''
+        self.func_widget = QtGui.QWidget()
+        self.func_widget.setObjectName(const.CSS_WIDGET_TAG_NODE_FUNC)
+        self.addWidget(self.func_widget)
+        self.func_widget.move(300, 4)
+        self.func_widget.resize(150, 30)
+        self.func_list = list()
+        #
+        self.previewbutton = self.add_func_button('A')
+        #
+        self.dir_button = self.add_func_button('F')
+        #
+        self.set_cover_button = self.add_func_button('C')
+
     def update(self, filename):
         self.setTitle(filename)
         self.show()
+
+    def add_func_button(self, text, func= None):
+        button = QtGui.QPushButton(self.func_widget)
+        button.setText(text)
+        button.move(len(self.func_list) * 28 + 2, 2)
+        button.resize(26, 26)
+
+        self.func_list.append(button)
+        return button
+
+    @QtCore.pyqtSlot('')
+    def on_previewbutton_clicked(self):
+        print 'preview audio file'
 
     def setTitle(self, title):
         self.label.setText(title)
