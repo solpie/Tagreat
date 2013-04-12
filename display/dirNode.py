@@ -27,11 +27,11 @@ class DirNode(CssQBase):
 
     def update(self, str_dir):
         self.label.setText(trans(str_dir))
+        self.show()
         print self, self.getText()
-        self.base.show()
 
     def free(self):
-        self.base.hide()
+        self.hide()
 
     def getText(self):
         return self.label.text()

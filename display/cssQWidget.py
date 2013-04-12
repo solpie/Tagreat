@@ -53,3 +53,9 @@ class CssQBase(object):
 
     def scroll(self, x, y):
         self.base.scroll(x, y)
+
+    def hide(self):
+        self.base.hide()
+
+    def show(self):
+        self.base.show()

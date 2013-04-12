@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'SolPie'
 from cssQWidget import CssQBase
-from dirNode import DirNode
 from tagNode import TagNode
 from PyQt4 import QtGui, QtCore
 import const
@@ -37,13 +36,11 @@ class TagTree(CssQBase):
 
     def override(self):
         self.base.wheelEvent = self.wheelEvent
-        pass
 
     def on_vScroll_changed(self):
         dy = self.scroll_y - self.vScroll_bar.value()
         self.tag_list_widget.scroll(0, dy)
         self.scroll_y = self.vScroll_bar.value()
-        pass
 
     def wheelEvent(self, e):
         self.vScroll_bar.setValue(self.vScroll_bar.value() - e.delta())
@@ -76,4 +73,3 @@ class TagTree(CssQBase):
             t = self.tagNode_list[i]
             t.free()
         self.tag_list = list()
-        pass

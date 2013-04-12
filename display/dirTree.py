@@ -56,7 +56,6 @@ class DirTree(CssQBase):
         dy = self.scroll_y - self.vScroll_bar.value()
         self.dir_list_widget.scroll(0, dy)
         self.scroll_y = self.vScroll_bar.value()
-        pass
 
     def wheelEvent(self, e):
         self.vScroll_bar.setValue(self.vScroll_bar.value() - e.delta())

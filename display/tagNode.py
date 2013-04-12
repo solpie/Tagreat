@@ -17,11 +17,12 @@ class TagNode(CssQBase):
 
     def update(self, filename):
         self.setTitle(filename)
+        self.show()
 
     def setTitle(self, title):
         self.label.setText(title)
 
     def free(self):
-        self.base.hide()
+        self.hide()
         # self.icon = QtGui.QPixmap(self)
         # self.icon.load('tmp/icon.png')
