@@ -2,7 +2,10 @@ __author__ = 'SolPie'
 import pyaudio
 import wave
 import time
+from deco import singleton
 
+
+@singleton
 class Preview():
     CHUNK = 1024
 
@@ -21,8 +24,8 @@ class Preview():
         # define callback (2)
         def callback(in_data, frame_count, time_info, status):
             data = wf.readframes(frame_count)
-            print 'callback',in_data,frame_count,time_info,status
-            return (data, pyaudio.paContinue)
+            print 'callback', in_data, frame_count, time_info, status
+            return data, pyaudio.paContinue
 
         stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
                         channels=wf.getnchannels(),
@@ -37,7 +40,7 @@ class Preview():
         # wait for stream to finish (5)
         while stream.is_active():
             time.sleep(0.1)
-        # self.stop()
+            # self.stop()
         pass
 
     def play(self):

@@ -4,11 +4,8 @@ from cssQWidget import CssQBase
 from tagNode import TagNode
 from PyQt4 import QtGui, QtCore
 import const
-import wmi
-import os
-import win32con
-import win32file
 from views.tagGalleryView import view
+from models.tagGalleryModel import model
 
 
 class TagTree(CssQBase):
@@ -17,7 +14,7 @@ class TagTree(CssQBase):
 
     def __init__(self, parent):
         super(TagTree, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_DIR_TREE)
-        self.resize(600, 800)
+        self.resize(800, 800)
         self.override()
         self.add_listener()
 
@@ -36,6 +33,7 @@ class TagTree(CssQBase):
 
     def override(self):
         self.base.wheelEvent = self.wheelEvent
+        model.update_tag_tree = self.update_tag_node
 
     def on_vScroll_changed(self):
         dy = self.scroll_y - self.vScroll_bar.value()
@@ -46,11 +44,11 @@ class TagTree(CssQBase):
         self.vScroll_bar.setValue(self.vScroll_bar.value() - e.delta())
 
     def add_listener(self):
-        view.map(view.LIST_DIR, self.update_node)
+        view.map(view.LIST_DIR, self.clear_nodes)
         pass
 
     @CssQBase.update_ui
-    def update_node(self, node_list):
+    def update_nodes(self, node_list):
         idx = 0
         for title in node_list:
             if idx < len(self.tagNode_list):
@@ -65,6 +63,18 @@ class TagTree(CssQBase):
             self.tag_list.append(title)
             idx += 1
         self.clear_nodes(idx)
+
+    def update_tag_node(self, title, idx):
+        if idx < len(self.tagNode_list):
+            tagNode = self.tagNode_list[idx]
+            tagNode.update(title)
+        else:
+            num = len(self.tagNode_list)
+            tagNode = TagNode(self.tag_list_widget, title)
+            tagNode.resize(self.tag_list_widget.width() - 40, 80)
+            tagNode.move(5, num * 83)
+            self.tagNode_list.append(tagNode)
+        self.tag_list.append(title)
 
     def clear_nodes(self, idx):
         print self, 'clear...'

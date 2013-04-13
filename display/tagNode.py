@@ -4,6 +4,7 @@ from PyQt4 import QtGui, QtCore
 from const import trans
 from cssQWidget import CssQBase
 import const
+from utils.audio.preview import Preview
 
 
 class TagNode(CssQBase):
@@ -33,28 +34,34 @@ class TagNode(CssQBase):
         self.func_widget.resize(150, 30)
         self.func_list = list()
         #
-        self.previewbutton = self.add_func_button('A')
+        self.preview_button = self.add_func_button('A', self.preview_audio)
         #
-        self.dir_button = self.add_func_button('F')
+        self.dir_button = self.add_func_button('F', self.open_dir)
         #
-        self.set_cover_button = self.add_func_button('C')
+        self.set_cover_button = self.add_func_button('C', self.set_cover)
 
     def update(self, filename):
         self.setTitle(filename)
         self.show()
 
-    def add_func_button(self, text, func= None):
+    def add_func_button(self, text, func=None):
         button = QtGui.QPushButton(self.func_widget)
         button.setText(text)
         button.move(len(self.func_list) * 28 + 2, 2)
         button.resize(26, 26)
-
+        button.mousePressEvent = func
         self.func_list.append(button)
         return button
 
-    @QtCore.pyqtSlot('')
-    def on_previewbutton_clicked(self):
-        print 'preview audio file'
+    def preview_audio(self, *args):
+        p = Preview()
+        print 'preview audio file', args
+
+    def open_dir(self, *args):
+        print 'open file in explorer', args
+
+    def set_cover(self, *args):
+        print 'set cover', args
 
     def setTitle(self, title):
         self.label.setText(title)
