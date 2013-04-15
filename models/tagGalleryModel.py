@@ -32,11 +32,13 @@ class TagGalleryModel():
             if self.current_path is '/':
                 self.clear_dir()
                 dir_idx = self.list_partition()
-                # self.update_tag_tree()
             else:
                 dir_idx, file_idx = self.list_dir(self.current_path)
             print 'backward dir:', self.current_path
+            self.update_tag_tree(self.file_list)
             return dir_idx, file_idx
+        else:
+            return 0, 0
 
     def list_partition(self):
         c = wmi.WMI()
@@ -46,9 +48,9 @@ class TagGalleryModel():
             print 'init... list partition', self.partition_list
         for disk in self.partition_list:
             # print disk.Caption
-            self.update_dir_tree(disk.Caption, dir_idx)
             self.dir_list.append(disk.Caption)
             dir_idx += 1
+        self.update_dir_tree(self.dir_list)
         return dir_idx
 
     def list_dir(self, path):
@@ -64,13 +66,13 @@ class TagGalleryModel():
                 print self, file_url
             elif attribute & win32con.FILE_ATTRIBUTE_DIRECTORY:
                 print self, self.dir_list, len(self.dir_list)
-                self.update_dir_tree(f, dir_idx)
                 self.dir_list.append(f)
                 dir_idx += 1
             else:
-                self.update_tag_tree(f, file_idx)
                 self.file_list.append(f)
                 file_idx += 1
+        self.update_dir_tree(self.dir_list)
+        self.update_tag_tree(self.file_list)
         return dir_idx, file_idx
 
     def on_update_dir(self, *args):

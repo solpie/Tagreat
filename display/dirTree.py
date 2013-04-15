@@ -74,13 +74,13 @@ class DirTree(CssQBase):
     @CssQBase.update_ui
     def open_dir(self, e=None):
         str_dir = str(e.getText())
-        self.clear_dir()
         dir_idx, file_idx = model.open_dir(str_dir)
+        # self.clear_dir(dir_idx)
         self.set_vScroll_range(dir_idx)
 
     def backward_dir(self, e=None):
-        self.clear_dir()
         dir_idx, file_idx = model.backward_dir()
+        # self.clear_dir(dir_idx)
         self.set_vScroll_range(dir_idx)
 
     def list_partition(self):
@@ -88,21 +88,26 @@ class DirTree(CssQBase):
         self.set_vScroll_range(idx)
 
     #
-    def update_dir(self, str_dir, idx):
-        if idx < len(self.dirNode_list):
-            dirNode = self.dirNode_list[idx]
-            dirNode.update(str_dir)
-        else:
-            num = len(model.dir_list)
-            dirNode = DirNode(self.dir_list_widget, str_dir)
-            dirNode.resize(self.dir_list_widget.width() - 40, 25)
-            dirNode.onClick = self.open_dir
-            self.dirNode_list.append(dirNode)
-            dirNode.move(5, num * 28)
+    def update_dir(self, dir_list):
+        idx = 0
+        for str_dir in dir_list:
+            if idx < len(self.dirNode_list):
+                dirNode = self.dirNode_list[idx]
+                dirNode.update(str_dir)
+            else:
+                num = len(self.dirNode_list)
+                dirNode = DirNode(self.dir_list_widget, str_dir)
+                dirNode.resize(self.dir_list_widget.width() - 40, 25)
+                dirNode.onClick = self.open_dir
+                self.dirNode_list.append(dirNode)
+                dirNode.move(5, num * 28)
+            idx += 1
+        self.clear_dir(idx)
 
-    def clear_dir(self):
+    def clear_dir(self, idx):
         self.dir_list_widget.scroll(0, -self.scroll_y)
-        for d in self.dirNode_list:
+        for i in range(idx, len(self.dirNode_list)):
+            d = self.dirNode_list[i]
             d.free()
             # self.base.destroy()#destroy (self, bool destroyWindow = True, bool destroySubWindows = True)
 
