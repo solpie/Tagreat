@@ -26,9 +26,10 @@ class DirNode(CssQBase):
         pass
 
     def update(self, str_dir):
-        self.label.setText(trans(str_dir))
+        title = trans(str_dir)
+        self.label.setText(title)
         self.show()
-        print self, self.getText()
+        print self, title
 
     def free(self):
         self.hide()

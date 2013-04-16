@@ -5,6 +5,7 @@ from const import trans
 from cssQWidget import CssQBase
 import const
 from utils.audio.preview import Preview
+from models.tagGalleryModel import model
 
 
 class TagNode(CssQBase):
@@ -54,8 +55,18 @@ class TagNode(CssQBase):
         return button
 
     def preview_audio(self, *args):
-        p = Preview()
+        from utils.worker import Thread
+
+        t = Thread()
+        t.printf = self.play
+        t.start()
         print 'preview audio file', args
+
+    def play(self):
+        p = Preview()
+        p.stop()
+        p.open(model.get_file_url(self.getTitle()))
+        p.play()
 
     def open_dir(self, *args):
         print 'open file in explorer', args
@@ -65,6 +76,9 @@ class TagNode(CssQBase):
 
     def setTitle(self, title):
         self.label.setText(title)
+
+    def getTitle(self):
+        return str(self.label.text())
 
     def free(self):
         self.hide()

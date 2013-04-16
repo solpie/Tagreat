@@ -89,6 +89,9 @@ class TagGalleryModel():
         self.dir_list = list()
         self.file_list = list()
 
+    def get_file_url(self, filename):
+        return os.path.join(self.current_path, filename)
+
 
 model = TagGalleryModel()
 
