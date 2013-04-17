@@ -58,6 +58,7 @@ class Preview():
             self.p.terminate()
             self.wf.close()
             self.playing = False
+            print self, '>>stop...'
         pass
 
     def pause(self):

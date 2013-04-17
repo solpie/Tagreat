@@ -75,12 +75,10 @@ class DirTree(CssQBase):
     def open_dir(self, e=None):
         str_dir = str(e.getText())
         dir_idx, file_idx = model.open_dir(str_dir)
-        # self.clear_dir(dir_idx)
         self.set_vScroll_range(dir_idx)
 
     def backward_dir(self, e=None):
         dir_idx, file_idx = model.backward_dir()
-        # self.clear_dir(dir_idx)
         self.set_vScroll_range(dir_idx)
 
     def list_partition(self):
