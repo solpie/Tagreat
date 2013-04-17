@@ -28,13 +28,12 @@ class Preview():
             # print 'callback', in_data, frame_count, time_info, status
             return data, pyaudio.paContinue
 
-        stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                        channels=wf.getnchannels(),
-                        rate=wf.getframerate(),
-                        output=True,
-                        stream_callback=callback)
-        self.stream = stream
-        self.stream.stop_stream()
+        self.stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
+                             channels=wf.getnchannels(),
+                             rate=wf.getframerate(),
+                             output=True,
+                             start=False,
+                             stream_callback=callback)
 
         # start the stream (4)
         # stream.start_stream()
@@ -42,7 +41,6 @@ class Preview():
         # wait for stream to finish (5)
         # while stream.is_active():
         #     time.sleep(1)
-            # self.stop()
         self.ready = True
         pass
 
