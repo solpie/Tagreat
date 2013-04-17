@@ -17,6 +17,7 @@ class Preview():
             self.open(url)
 
     def open(self, url):
+        self.ready = False
         wf = wave.open(url, 'rb')
         self.wf = wf
         p = self.p = pyaudio.PyAudio()
@@ -24,7 +25,7 @@ class Preview():
         # define callback (2)
         def callback(in_data, frame_count, time_info, status):
             data = wf.readframes(frame_count)
-            print 'callback', in_data, frame_count, time_info, status
+            # print 'callback', in_data, frame_count, time_info, status
             return data, pyaudio.paContinue
 
         stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
@@ -33,20 +34,24 @@ class Preview():
                         output=True,
                         stream_callback=callback)
         self.stream = stream
+        self.stream.stop_stream()
 
         # start the stream (4)
-        stream.start_stream()
+        # stream.start_stream()
 
         # wait for stream to finish (5)
-        while stream.is_active():
-            time.sleep(0.1)
+        # while stream.is_active():
+        #     time.sleep(1)
             # self.stop()
+        self.ready = True
         pass
 
     def play(self):
+        print self, '>>play...'
         if self.ready:
             self.stream.start_stream()
             self.playing = True
+            print self, '>>play...'
             pass
             # self.p.
         pass

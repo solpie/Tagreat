@@ -8,6 +8,7 @@ from utils.audio.preview import Preview
 from models.tagGalleryModel import model
 from utils.worker import Worker as Thread
 
+
 class TagNode(CssQBase):
     func_list = None
 
@@ -55,24 +56,30 @@ class TagNode(CssQBase):
         return button
 
     def preview_audio(self, *args):
-
-
+        p = Preview()
+        print self, p
         t = Thread()
-        t.run = self.play
-        t.start()
+
+        if t.isAlive():
+            p.stop()
+            print __name__, ">>stop..."
+        else:
+            try:
+                # t.setDaemon(True)
+                t.run = self.play
+                t.start()
+            except Exception, e:
+                print e
         print 'preview audio file', args
 
     def play(self):
         p = Preview()
-        p.stop()
         p.open(model.get_file_url(self.getTitle()))
         p.play()
 
     def open_dir(self, *args):
-        t = Thread()
-        if t.is_alive():
-            p = Preview()
-            p.stop()
+        p = Preview()
+        p.stop()
         print 'open file in explorer', args
 
     def set_cover(self, *args):
