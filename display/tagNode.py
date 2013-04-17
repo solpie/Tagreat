@@ -60,16 +60,18 @@ class TagNode(CssQBase):
         print self, p
         t = Thread()
 
-        if t.isAlive():
+        if p.playing:
+        # if t.isAlive():
             p.stop()
             print __name__, ">>stop..."
         else:
-            try:
-                # t.setDaemon(True)
-                t.run = self.play
-                t.start()
-            except Exception, e:
-                print e
+            self.play()
+            # try:
+            #     # t.setDaemon(True)
+            #     t.run = self.play
+            #     t.start()
+            # except Exception, e:
+            #     print e
         print 'preview audio file', args
 
     def play(self):
