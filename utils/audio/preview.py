@@ -3,13 +3,14 @@ import pyaudio
 import wave
 import time
 from deco import singleton
-
+from utils.debuger import Log
 
 @singleton
 class Preview():
     CHUNK = 1024
 
     def __init__(self, url=None):
+        self.log = Log()
         self.url = None
         self.ready = False
         self.playing = False
@@ -41,6 +42,7 @@ class Preview():
         # wait for stream to finish (5)
         # while stream.is_active():
         #     time.sleep(1)
+        self.log.debug(self, '>>ready', self.stream.get_time())
         self.ready = True
         pass
 
