@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'SolPie'
 from database import Base
-from sqlalchemy import Column, Integer, String, DateTime, Text
+from sqlalchemy import Column, Integer, String, DateTime
 
 
 class TagModel(Base):
