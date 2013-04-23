@@ -25,6 +25,7 @@ def main():
     mw.show()
     sys.exit(app.exec_())
 
+
 def init_db():
     from database import init_db as init
     init()
@@ -33,6 +34,6 @@ def init_db():
 if __name__ == "__main__":
     # test()
     #
-    init_db()
-    # main()
+    # init_db()
+    main()
 

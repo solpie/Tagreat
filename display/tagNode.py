@@ -42,6 +42,7 @@ class TagNode(CssQBase):
         #
         self.set_cover_button = self.add_func_button('C', self.set_cover)
 
+
     def update(self, filename):
         self.setTitle(filename)
         self.show()

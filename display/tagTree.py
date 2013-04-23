@@ -6,6 +6,7 @@ from PyQt4 import QtGui, QtCore
 import const
 from views.tagGalleryView import view
 from models.tagGalleryModel import model
+from models.rcModel import RcModel
 
 
 class TagTree(CssQBase):
@@ -31,9 +32,13 @@ class TagTree(CssQBase):
 
         self.scroll_y = 0
 
+        rc = RcModel()
+        self.icon = rc.getCopy(1, 0)
+
     def override(self):
         self.base.wheelEvent = self.wheelEvent
         model.update_tag_tree = self.update_nodes
+        self.base.paintEvent = self.paintEvent
 
     def on_vScroll_changed(self):
         dy = self.scroll_y - self.vScroll_bar.value()
@@ -42,6 +47,11 @@ class TagTree(CssQBase):
 
     def wheelEvent(self, e):
         self.vScroll_bar.setValue(self.vScroll_bar.value() - e.delta())
+
+    def paintEvent(self, e):
+        p = QtGui.QPainter(self.base)
+        p.drawPixmap(5, 5, self.icon)
+        print(self, 'paintEvent...')
 
     def add_listener(self):
         # view.map(view.LIST_DIR, self.clear_nodes)
