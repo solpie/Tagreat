@@ -11,6 +11,7 @@ from utils.worker import Worker as Thread
 
 class TagNode(CssQBase):
     func_list = None
+    press = False
 
     def __init__(self, parent, title):
         super(TagNode, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_ENTITY)
@@ -41,11 +42,37 @@ class TagNode(CssQBase):
         self.dir_button = self.add_func_button('F', self.open_dir)
         #
         self.set_cover_button = self.add_func_button('C', self.set_cover)
+        self.set_cover_button.mouseMoveEvent = self.mouseMoveEvent
 
+        self.override()
+
+    def override(self):
+        self.base.dragEnterEvent = self.dragEnterEvent
+        self.base.dropEvent = self.dropEvent
+        self.base.setAcceptDrops(True)
 
     def update(self, filename):
         self.setTitle(filename)
         self.show()
+
+    def mouseMoveEvent(self, e):
+        if not self.press:
+            return
+        mimeData = QtCore.QMimeData()
+        drag = QtGui.QDrag(self.base)
+        drag.setMimeData(mimeData)
+        dropAction = drag.start(QtCore.Qt.MoveAction)
+        print("....")
+
+    def dropEvent(self, e):
+        print('dropEvent')
+
+    def dragEnterEvent(self, e):
+        e.accept()
+        # if e.mimeDate().hasFormat('text/plain'):
+        #     e.accept()
+        # else:
+        #     e.ignore()
 
     def add_func_button(self, text, func=None):
         button = QtGui.QPushButton("Toggle Button", self.func_widget)
@@ -86,6 +113,7 @@ class TagNode(CssQBase):
         print 'open file in explorer', args
 
     def set_cover(self, *args):
+        self.press = True
         print 'set cover', args
 
     def setTitle(self, title):
