@@ -7,14 +7,15 @@ import const
 from utils.audio.preview import Preview
 from models.tagGalleryModel import model
 from utils.worker import Worker as Thread
+from models.rcModel import RcModel
 
 
-class TagNode(CssQBase):
+class EntityNode(CssQBase):
     func_list = None
     press = False
 
     def __init__(self, parent, title):
-        super(TagNode, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_ENTITY)
+        super(EntityNode, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_ENTITY)
         self.label = QtGui.QLabel()
         self.label.setObjectName(const.CSS_LABEL_TAG_NODE)
         self.label.move(4, 4)
@@ -44,6 +45,7 @@ class TagNode(CssQBase):
         self.set_cover_button = self.add_func_button('C', self.set_cover)
         self.set_cover_button.mouseMoveEvent = self.mouseMoveEvent
 
+        self.res = RcModel()
         self.override()
 
     def override(self):
@@ -61,6 +63,7 @@ class TagNode(CssQBase):
         mimeData = QtCore.QMimeData()
         drag = QtGui.QDrag(self.base)
         drag.setMimeData(mimeData)
+        drag.setPixmap(self.res.getCopy(4, 0))
         dropAction = drag.start(QtCore.Qt.MoveAction)
         print("....")
 
@@ -114,6 +117,7 @@ class TagNode(CssQBase):
 
     def set_cover(self, *args):
         self.press = True
+        # QtGui.QPushButton.mousePressEvent(self.set_cover_button, *args)
         print 'set cover', args
 
     def setTitle(self, title):

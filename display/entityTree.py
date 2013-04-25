@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'SolPie'
 from cssQWidget import CssQBase
-from tagNode import TagNode
+from entityNode import EntityNode
 from PyQt4 import QtGui, QtCore
 import const
 from views.tagGalleryView import view
@@ -9,12 +9,12 @@ from models.tagGalleryModel import model
 from models.rcModel import RcModel
 
 
-class TagTree(CssQBase):
+class EntityTree(CssQBase):
     tag_list = list()
     tagNode_list = list()
 
     def __init__(self, parent):
-        super(TagTree, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_DIR_TREE)
+        super(EntityTree, self).__init__(QtGui.QWidget, parent, const.CSS_WIDGET_DIR_TREE)
         self.resize(800, 800)
         self.override()
         # self.add_listener()
@@ -66,7 +66,7 @@ class TagTree(CssQBase):
                 tagNode.update(title)
             else:
                 num = len(self.tagNode_list)
-                tagNode = TagNode(self.tag_list_widget, title)
+                tagNode = EntityNode(self.tag_list_widget, title)
                 tagNode.resize(self.tag_list_widget.width() - 40, 80)
                 tagNode.move(5, num * 83)
                 self.tagNode_list.append(tagNode)

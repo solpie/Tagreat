@@ -4,7 +4,7 @@ from PyQt4 import QtCore as Core, QtGui as Gui
 from display.menuBar import MenuBar
 from display.dirTree import DirTree
 
-from display.tagTree import TagTree
+from display.entityTree import EntityTree
 
 
 class MainWin(Gui.QMainWindow):
@@ -34,5 +34,5 @@ class MainWin(Gui.QMainWindow):
         self.dir_tree = DirTree(self.centralWidget)
         self.dir_tree.move(10, 5)
 
-        self.entity = TagTree(self.centralWidget)
+        self.entity = EntityTree(self.centralWidget)
         self.entity.move(400, 5)
