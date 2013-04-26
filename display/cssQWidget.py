@@ -42,3 +42,8 @@ class CssQBase(object):
 
     def show(self):
         self.base.show()
+
+
+class CssWrapper(object):
+    def __init__(self):
+        pass

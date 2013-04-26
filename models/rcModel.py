@@ -2,7 +2,7 @@
 __author__ = 'SolPie'
 
 from deco import singleton
-from PyQt4 import QtGui
+from PyQt4 import QtGui,QtCore
 
 
 @singleton
@@ -21,3 +21,8 @@ class RcModel():
     def getCopy(self, x, y):
         return self.icon.copy(x * 20, y * 20, 20, 20)
 
+    def getCssString(self):
+        f = QtCore.QFile("darkstyle.css")
+        f.open(QtCore.QFile.ReadOnly)
+        style_sheet = QtCore.QLatin1String(f.readAll())
+        return style_sheet

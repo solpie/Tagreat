@@ -5,6 +5,8 @@ from display.menuBar import MenuBar
 from display.dirTree import DirTree
 
 from display.entityTree import EntityTree
+from models.rcModel import RcModel
+import const
 
 
 class MainWin(Gui.QMainWindow):
@@ -14,12 +16,10 @@ class MainWin(Gui.QMainWindow):
         # self.setWindowFlags(Core.Qt.FramelessWindowHint)#全屏无标题栏
 
     def setupUI(self):
-        f = Core.QFile("darkstyle.css")
-        f.open(Core.QFile.ReadOnly)
-        style_sheet = Core.QLatin1String(f.readAll())
-        self.setStyleSheet(style_sheet)
+        rc = RcModel()
+        self.setStyleSheet(rc.getCssString())
 
-        self.setWindowTitle("Tagreat")
+        self.setWindowTitle(const.UI_MAIN_WINDOW_TITLE)
         self.showMaximized()
         self.centralWidget = Gui.QWidget(self)
         self.setCentralWidget(self.centralWidget)

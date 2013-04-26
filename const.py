@@ -10,6 +10,7 @@ def trans(text, disambig=None):
     return QtGui.QApplication.translate("", text, disambig, QtGui.QApplication.UnicodeUTF8)
 
 
+UI_MAIN_WINDOW_TITLE = 'Tagreat'
 UI_MENU_FILE = '文件'
 UI_MENU_FILE_OPEN = '打开'
 UI_MENU_FILE_EXIT = '退出'
@@ -21,3 +22,5 @@ CSS_LABEL_DIR_TREE_LABEL = 'DirTreeLabel'
 CSS_LABEL_TAG_NODE = 'TagNode'
 CSS_BUTTON_DIR_TREE_NODE = 'DirTreeNode'
 CSS_WIDGET_TAG_NODE_FUNC = 'TagNodeFunc'
+
+print '[const] init...'
