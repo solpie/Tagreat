@@ -5,10 +5,6 @@ from dirNode import DirNode
 from models.tagGalleryModel import model
 from PyQt4 import QtGui, QtCore
 import const
-import wmi
-import os
-import win32con
-import win32file
 
 
 class DirTree(CssQBase):
