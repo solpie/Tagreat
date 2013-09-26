@@ -33,7 +33,6 @@ def init_db():
 
 if __name__ == "__main__":
     # test()
-    #
     # init_db()
     main()
 
