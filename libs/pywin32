@@ -1,0 +1,12 @@
+win32api pywin32 安装后出现 ImportError: DLL load failed
+
+
+ 解决方法:
+
+拷贝
+
+C:\Python26\Lib\site-packages\pywin32_system32\*
+
+至
+
+C:\Windows\System32
